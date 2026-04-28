@@ -1,35 +1,46 @@
 /**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
+ * Workers.dev only: no custom `routes` — URLs are https://<name>.<subdomain>.workers.dev
+ *
+ * Before deploy, replace placeholder IDs and names with resources from your account:
+ *   wrangler d1 create links-tracker-stage
+ *   wrangler d1 create links-tracker-production
+ *   wrangler kv namespace create links-tracker-cache-stage
+ *   wrangler kv namespace create links-tracker-cache-production
+ *   wrangler queues create links-tracker-queue-stage
+ *   wrangler queues create links-tracker-dead-letter-queue-stage
+ *   wrangler queues create links-tracker-queue-production
+ *   wrangler queues create links-tracker-dead-letter-queue-production
+ *   wrangler r2 bucket create links-tracker-eval-stage
+ *   wrangler r2 bucket create links-tracker-eval-production
+ *
+ * Paste the same stage D1 database_id into apps/user-application wrangler env.stage.
+ * Paste the same production D1 id into user-application env.production.
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "data-service",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-06-17",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"observability": {
 		"enabled": true
 	},
 	"env": {
 		"stage": {
-			"routes": [
-				{
-					"zone_name": "smrtlnk.org",
-					"pattern": "stage.smrtlnk.org/r/*"
-				}
-			],
+			"name": "data-service-stage",
 			"d1_databases": [
 				{
 					"binding": "DB",
-					"database_id": "dda783a3-36fa-4ee7-8c37-216b90718aaa",
+					"database_id": "e069c262-3ec5-4f3e-bf02-42ddf2937eed",
 					"remote": true
 				}
 			],
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",
-					"id": "8de2bf0478814265af77a8efb9d5297d",
+					"id": "e527e879b7c64b27a3bf12373695c8d1",
 					"remote": true
 				}
 			],
@@ -85,31 +96,30 @@
 			"migrations": [
 				{
 					"tag": "v1",
-					"new_classes": ["EvaluationScheduler"]
+					"new_sqlite_classes": [
+						"EvaluationScheduler"
+					]
 				},
 				{
 					"tag": "v2",
-					"new_sqlite_classes": ["LinkClickTracker"]
+					"new_sqlite_classes": [
+						"LinkClickTracker"
+					]
 				}
 			]
 		},
 		"production": {
-			"routes": [
-				{
-					"zone_name": "smrtlnk.org",
-					"pattern": "smrtlnk.org/r/*"
-				}
-			],
+			"name": "data-service-production",
 			"d1_databases": [
 				{
 					"binding": "DB",
-					"database_id": "6341e24c-d489-4da6-8d99-39245d869123"
+					"database_id": "416efea9-c0c4-4e27-8961-ca0e0a8483a"
 				}
 			],
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",
-					"id": "9e802eaba2ea485b91bc059cd72f6785"
+					"id": "9fa31f1a69f4498a865524aefdbc3408"
 				}
 			],
 			"queues": {
@@ -164,11 +174,15 @@
 			"migrations": [
 				{
 					"tag": "v1",
-					"new_classes": ["EvaluationScheduler"]
+					"new_sqlite_classes": [
+						"EvaluationScheduler"
+					]
 				},
 				{
 					"tag": "v2",
-					"new_sqlite_classes": ["LinkClickTracker"]
+					"new_sqlite_classes": [
+						"LinkClickTracker"
+					]
 				}
 			]
 		}

@@ -15,6 +15,13 @@
       "when": 1758633496045,
       "tag": "0001_robust_hellion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1777389156619,
+      "tag": "0002_remove_stripe",
+      "breakpoints": true
     }
   ]
 }

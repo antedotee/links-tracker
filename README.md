@@ -8,7 +8,7 @@ A full-stack link tracking and analytics platform built on Cloudflare infrastruc
 - **Geographic Routing**: Route users to different destinations based on their location
 - **Real-time Analytics**: Track clicks, monitor performance, and analyze user behavior
 - **Interactive Dashboard**: Visual maps, charts, and tables for comprehensive analytics
-- **Authentication**: Secure user authentication with Better Auth and Stripe integration
+- **Authentication**: Secure user authentication with Better Auth (Google OAuth)
 - **Real-time Updates**: WebSocket connections for live click tracking
 
 ## 🏗️ Architecture
@@ -73,10 +73,13 @@ This is a monorepo built with modern technologies and deployed on Cloudflare:
 ```bash
 # Install dependencies
 pnpm install
-
-# Set up environment variables
-cp .env.example .env
 ```
+
+Environment variables are documented in `.env.example`. Copy the indicated sections into:
+
+- `packages/data-ops/.env` — Drizzle / D1 migrations
+- `apps/user-application/.env` — Vite (`VITE_BASE_HOST`)
+- `apps/user-application/.dev.vars` — local Worker secrets for `pnpm dev`
 
 ### Running the Project
 
@@ -172,11 +175,12 @@ pnpm prod:deploy
 ```
 
 ### Environment Configuration
-The project uses Cloudflare Workers with environment-specific configurations:
-- **Staging**: `--env stage`
-- **Production**: `--env production`
+The project uses Cloudflare Workers with environment-specific configurations in `apps/*/wrangler.jsonc`:
 
-Ensure your `wrangler.toml` files are properly configured for each environment.
+- **Staging**: `stage`
+- **Production**: `production`
+
+Update bindings (D1 IDs, KV, queues, routes, service names) for your Cloudflare account, then use Wrangler secrets for OAuth and `APP_SECRET`. See `.env.example` for variable names and deploy order (data-service before user-application).
 
 ## 🧪 Testing
 
@@ -193,7 +197,6 @@ pnpm test
 ## 🛡️ Security
 
 - Authentication handled by Better Auth
-- Stripe integration for payments
 - Type-safe APIs with tRPC and Zod validation
 - Secure environment variable management
 
@@ -229,7 +232,7 @@ pnpm test
 
 ### Shared/Tools
 - **TypeScript** for end-to-end type safety
-- **Better Auth** with Stripe integration for authentication
+- **Better Auth** for authentication
 - **Zod** for runtime schema validation
 - **pnpm Workspaces** for monorepo management
 - **Vitest** for unit and integration testing

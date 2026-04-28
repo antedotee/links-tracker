@@ -15,7 +15,6 @@ export const user = sqliteTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  stripeCustomerId: text("stripe_customer_id"),
 });
 
 export const session = sqliteTable("session", {
@@ -73,19 +72,4 @@ export const verification = sqliteTable("verification", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-});
-
-export const subscription = sqliteTable("subscription", {
-  id: text("id").primaryKey(),
-  plan: text("plan").notNull(),
-  referenceId: text("reference_id").notNull(),
-  stripeCustomerId: text("stripe_customer_id"),
-  stripeSubscriptionId: text("stripe_subscription_id"),
-  status: text("status").default("incomplete"),
-  periodStart: integer("period_start", { mode: "timestamp" }),
-  periodEnd: integer("period_end", { mode: "timestamp" }),
-  cancelAtPeriodEnd: integer("cancel_at_period_end", {
-    mode: "boolean",
-  }).default(false),
-  seats: integer("seats"),
 });
