@@ -8,5 +8,8 @@ APP_SECRET=
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
+# Must match the browser origin where the app runs (Better Auth OAuth redirects).
+BETTER_AUTH_URL=http://localhost:3000
+
 VITE_BASE_HOST=localhost:3000
 CLOUDFLARE_ENV=development

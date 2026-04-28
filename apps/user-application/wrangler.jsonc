@@ -22,6 +22,10 @@
   "env": {
     "stage": {
       "name": "user-application-stage",
+      "vars": {
+        "BETTER_AUTH_URL": "https://user-application-stage.kartikyadavstand.workers.dev",
+        "VITE_BASE_HOST": "user-application-stage.kartikyadavstand.workers.dev"
+      },
       "d1_databases": [
         {
           "binding": "DB",
@@ -39,6 +43,10 @@
     },
     "production": {
       "name": "user-application-production",
+      "vars": {
+        "BETTER_AUTH_URL": "https://user-application-production.kartikyadavstand.workers.dev",
+        "VITE_BASE_HOST": "user-application-production.kartikyadavstand.workers.dev"
+      },
       "d1_databases": [
         {
           "binding": "DB",

@@ -14,12 +14,19 @@ export const App = new Hono<{
 App.all("/r/*", (c) => c.env.BACKEND_SERVICE.fetch(c.req.raw));
 
 const getAuthInstance = (env: Env) => {
+  const baseURL =
+    env.BETTER_AUTH_URL?.trim() ||
+    (env.VITE_BASE_HOST
+      ? `https://${env.VITE_BASE_HOST.replace(/^https?:\/\//, "")}`
+      : "");
+
   return getAuth(
     {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
-    env.APP_SECRET
+    env.APP_SECRET,
+    baseURL
   );
 };
 

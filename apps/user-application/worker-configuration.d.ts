@@ -4,6 +4,7 @@
 declare namespace Cloudflare {
 	interface Env {
 		VITE_BASE_HOST: string;
+		BETTER_AUTH_URL: string;
 		CLOUDFLARE_ENV: string;
 		GOOGLE_CLIENT_ID: string;
 		GOOGLE_CLIENT_SECRET: string;
@@ -18,7 +19,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "VITE_BASE_HOST" | "CLOUDFLARE_ENV" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "APP_SECRET">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "VITE_BASE_HOST" | "BETTER_AUTH_URL" | "CLOUDFLARE_ENV" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "APP_SECRET">> {}
 }
 
 // Begin runtime types

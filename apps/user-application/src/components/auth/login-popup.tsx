@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { siGoogle } from "simple-icons";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { authClient } from "./client";
 
 interface LoginPopupProps {
@@ -20,11 +21,19 @@ export function LoginPopup({ children }: LoginPopupProps) {
   const [loading, setLoading] = useState(false);
   const signInWithGoogle = async () => {
     setLoading(true);
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "/app",
-    });
-    setLoading(false);
+    try {
+      const { error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/app",
+      });
+      if (error) {
+        toast.error(error.message ?? "Sign-in failed");
+      }
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Sign-in failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
