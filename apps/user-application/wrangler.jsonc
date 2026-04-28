@@ -1,6 +1,9 @@
 /**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
+ * Workers.dev only: no custom `routes`.
+ * Public app: https://user-application-stage.kartikyadavstand.workers.dev (staging)
+ *            https://user-application-production.kartikyadavstand.workers.dev (production)
+ *
+ * Replace D1 database_id values with the same IDs as in apps/data-service/wrangler.jsonc per env.
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -11,28 +14,18 @@
   "assets": {
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/auth/*", "/trpc/*", "/click-socket"]
+    "run_worker_first": ["/api/auth/*", "/trpc/*", "/click-socket", "/r/*"]
   },
   "observability": {
     "enabled": true
   },
   "env": {
     "stage": {
-      "vars": {
-        "STRIPE_PRODUCT_BASIC": "price_1SAX3TD9SMHToxaGMNHY4sQb",
-        "STRIPE_PRODUCT_PRO": "price_1SAX4bD9SMHToxaGThKfx6xQ",
-        "STRIPE_PRODUCT_ENTERPRISE": "price_1SAX57D9SMHToxaGvcSc0Kzb"
-      },
-      "routes": [
-        {
-          "custom_domain": true,
-          "pattern": "stage.smrtlnk.org"
-        }
-      ],
+      "name": "user-application-stage",
       "d1_databases": [
         {
           "binding": "DB",
-          "database_id": "dda783a3-36fa-4ee7-8c37-216b90718aaa",
+          "database_id": "e069c262-3ec5-4f3e-bf02-42ddf2937eed",
           "remote": true
         }
       ],
@@ -45,21 +38,11 @@
       ]
     },
     "production": {
-      "vars": {
-        "STRIPE_PRODUCT_BASIC": "price_1SAX3TD9SMHToxaGMNHY4sQb",
-        "STRIPE_PRODUCT_PRO": "price_1SAX4bD9SMHToxaGThKfx6xQ",
-        "STRIPE_PRODUCT_ENTERPRISE": "price_1SAX57D9SMHToxaGvcSc0Kzb"
-      },
-      "routes": [
-        {
-          "custom_domain": true,
-          "pattern": "smrtlnk.org"
-        }
-      ],
+      "name": "user-application-production",
       "d1_databases": [
         {
           "binding": "DB",
-          "database_id": "6341e24c-d489-4da6-8d99-39245d869123"
+          "database_id": "416efea9-c0c4-4e27-8961-ca0e0a8483a9"
         }
       ],
       "services": [

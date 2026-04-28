@@ -1,0 +1,12 @@
+# Copy to apps/user-application/.dev.vars (local Worker + Vite only; never commit real secrets)
+#
+# OAuth redirect for local dev must be registered in Google Cloud Console, e.g.:
+#   http://localhost:3000/api/auth/callback/google
+#   Authorized JavaScript origin: http://localhost:3000
+
+APP_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+VITE_BASE_HOST=localhost:3000
+CLOUDFLARE_ENV=development

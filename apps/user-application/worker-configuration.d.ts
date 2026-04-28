@@ -7,11 +7,6 @@ declare namespace Cloudflare {
 		CLOUDFLARE_ENV: string;
 		GOOGLE_CLIENT_ID: string;
 		GOOGLE_CLIENT_SECRET: string;
-		STRIPE_SECRET_KEY: string;
-		STRIPE_PRODUCT_BASIC: string;
-		STRIPE_PRODUCT_PRO: string;
-		STRIPE_PRODUCT_ENTERPRISE: string;
-		STRIPE_WEBHOOK_KEY: string;
 		APP_SECRET: string;
 		DB: D1Database;
 		BACKEND_SERVICE: Fetcher /* data-service-stage */;
@@ -23,7 +18,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "VITE_BASE_HOST" | "CLOUDFLARE_ENV" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "STRIPE_SECRET_KEY" | "STRIPE_PRODUCT_BASIC" | "STRIPE_PRODUCT_PRO" | "STRIPE_PRODUCT_ENTERPRISE" | "STRIPE_WEBHOOK_KEY" | "APP_SECRET">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "VITE_BASE_HOST" | "CLOUDFLARE_ENV" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "APP_SECRET">> {}
 }
 
 // Begin runtime types

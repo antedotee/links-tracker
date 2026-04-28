@@ -10,29 +10,14 @@ export const App = new Hono<{
   Variables: { userId: string };
 }>();
 
+/** Public short-link redirects (served by data-service). Same host as the SPA when using a single domain or *.workers.dev. */
+App.all("/r/*", (c) => c.env.BACKEND_SERVICE.fetch(c.req.raw));
+
 const getAuthInstance = (env: Env) => {
   return getAuth(
     {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-    },
-    {
-      stripeWebhookSecret: env.STRIPE_WEBHOOK_KEY,
-      stripeApiKey: env.STRIPE_SECRET_KEY,
-      plans: [
-        {
-          name: "basic",
-          priceId: env.STRIPE_PRODUCT_BASIC,
-        },
-        {
-          name: "pro",
-          priceId: env.STRIPE_PRODUCT_PRO,
-        },
-        {
-          name: "enterprise",
-          priceId: env.STRIPE_PRODUCT_ENTERPRISE,
-        },
-      ],
     },
     env.APP_SECRET
   );
