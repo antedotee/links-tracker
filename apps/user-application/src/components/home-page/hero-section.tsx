@@ -15,26 +15,25 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 py-20 sm:py-28">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent -z-10" />
+    <section className="relative overflow-hidden border-b-[3px] border-foreground bg-background py-20 sm:py-28">
+      {/* Neo accent stripe */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-3 bg-accent -z-10" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
           <Badge
             variant="outline"
-            className="mb-6 px-4 py-2 text-sm font-medium bg-primary/5 border-primary/20 text-primary"
+            className="mb-6 px-4 py-2 text-sm bg-secondary text-secondary-foreground border-foreground"
           >
             <Sparkles className="mr-2 h-3 w-3" />
             Trusted by 10,000+ businesses worldwide
           </Badge>
 
           {/* Main headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-6">
             Stop Losing Revenue to{" "}
-            <span className="bg-gradient-to-r from-primary via-primary to-purple-600 bg-clip-text text-transparent">
+            <span className="relative inline-block bg-accent px-3 py-1 text-accent-foreground border-2 border-foreground shadow-[var(--neo-offset-sm)] [transform:rotate(-1deg)]">
               Broken Links
             </span>
           </h1>

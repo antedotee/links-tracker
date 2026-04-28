@@ -25,7 +25,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">SmrtLnks</span>
+                <span className="font-display text-base font-bold tracking-tight">
+                  SmrtLnks
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
