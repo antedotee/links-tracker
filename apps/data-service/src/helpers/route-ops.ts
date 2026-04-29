@@ -57,6 +57,10 @@ export async function captureLinkClickInBackground(env: Env, event: LinkClickMes
 	await env.QUEUE.send(event);
 	const doId = env.LINK_CLICK_TRACKER.idFromName(event.data.accountId);
 	const stub = env.LINK_CLICK_TRACKER.get(doId);
-	if (!event.data.latitude || !event.data.longitude || !event.data.country) return;
-	await stub.addClick(event.data.latitude, event.data.longitude, event.data.country, moment().valueOf());
+	const lat = event.data.latitude;
+	const lon = event.data.longitude;
+	if (lat == null || lon == null || !Number.isFinite(lat) || !Number.isFinite(lon)) return;
+	const trimmed = event.data.country?.trim();
+	const country = trimmed && trimmed.length > 0 ? trimmed : 'UNKNOWN';
+	await stub.addClick(lat, lon, country, moment().valueOf());
 }
