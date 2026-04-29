@@ -10,8 +10,8 @@
     "serve": "vite preview",
     "test": "vitest run",
     "cf-typegen": "wrangler types --env-interface Env --env stage",
-    "stage:deploy": "CLOUDFLARE_ENV=stage vite build --mode development && tsc && wrangler deploy --env stage",
-    "prod:deploy": "CLOUDFLARE_ENV=production vite build --mode production && tsc && wrangler deploy --env production"
+    "stage:deploy": "CLOUDFLARE_ENV=stage vite build --mode development && tsc && wrangler deploy",
+    "prod:deploy": "CLOUDFLARE_ENV=production vite build --mode production && tsc && wrangler deploy"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

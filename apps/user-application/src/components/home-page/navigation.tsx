@@ -1,14 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { LoginPopup } from "@/components/auth/login-popup";
 import { UserCircle } from "@/components/auth/user-icon";
-// import { authClient } from "@/components/auth/client";
+import { authClient } from "@/components/auth/client";
 
 export function Navigation() {
-  // const { data: user, isPending } = authClient.useSession();
-
-  // Dummy data for auth client
-  const user = { id: "1", name: "John Doe", email: "john@example.com" };
-  const isPending = false;
+  const { data: session, isPending } = authClient.useSession();
 
   return (
     <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl mx-auto px-4">
@@ -25,7 +21,7 @@ export function Navigation() {
           </div>
           {isPending ? (
             <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
-          ) : user ? (
+          ) : session ? (
             <UserCircle />
           ) : (
             <LoginPopup>
