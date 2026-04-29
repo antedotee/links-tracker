@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User } from "lucide-react";
+import { LayoutDashboard, LogOut, User } from "lucide-react";
 import { useState } from "react";
 import { authClient } from "./client";
 import { useNavigate } from "@tanstack/react-router";
@@ -18,8 +18,14 @@ type UserProfilePopupProps = {
 };
 
 function UserProfilePopup({ data, children }: UserProfilePopupProps) {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
+
+  const handleGoDashboard = () => {
+    setOpen(false);
+    nav({ to: "/app" });
+  };
 
   const handleLogout = async () => {
     setLoading(true);
@@ -34,9 +40,11 @@ function UserProfilePopup({ data, children }: UserProfilePopupProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        className="sm:max-w-md border-2 border-foreground shadow-[var(--neo-offset-sm)] rounded-lg gap-0"
+      >
         <DialogHeader className="text-center space-y-4">
           <div className="flex flex-col items-center space-y-2">
             <Avatar className="h-16 w-16">
@@ -67,21 +75,33 @@ function UserProfilePopup({ data, children }: UserProfilePopupProps) {
           </div>
         </DialogHeader>
 
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col gap-3">
           <Button
+            type="button"
+            variant="default"
+            size="lg"
+            className="w-full h-12 text-base font-semibold tracking-tight"
+            onClick={handleGoDashboard}
+          >
+            <LayoutDashboard className="size-5" />
+            Dashboard
+          </Button>
+          <Button
+            type="button"
             onClick={handleLogout}
             variant="outline"
-            className="w-full h-12 text-base font-medium hover:bg-destructive/10 hover:text-destructive hover:border-destructive/20 transition-colors"
+            size="lg"
+            className="w-full h-12 text-base font-semibold tracking-tight hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30"
             disabled={loading}
           >
             {loading ? (
               <>
-                <div className="w-4 h-4 mr-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                <div className="w-4 h-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                 Signing out...
               </>
             ) : (
               <>
-                <LogOut className="w-4 h-4 mr-3" />
+                <LogOut className="size-5" />
                 Sign out
               </>
             )}
